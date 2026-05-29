@@ -1,0 +1,35 @@
+.ts-module .btn-primary
+{
+    background-color: #F26922 !important;
+    border-color: #F26922 !important;
+    color: #FFFFFF !important;
+}
+
+.ts-module .btn-primary:hover
+{
+    background-color: #E55F1D !important;
+    border-color: #E55F1D !important;
+}
+
+.ts-module input[type="radio"]:checked
+{
+    accent-color: #F26922;
+}
+
+.ts-module .alert
+{
+    border-left: 4px solid #F26922;
+}
+
+.sidebar button[type="submit"]
+{
+    background-color: #F26922 !important;
+    border-color: #F26922 !important;
+    color: #FFFFFF !important;
+}
+
+.sidebar button[type="submit"]:hover
+{
+    background-color: #E55F1D !important;
+    border-color: #E55F1D !important;
+}
