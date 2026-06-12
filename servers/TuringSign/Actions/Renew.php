@@ -6,7 +6,7 @@ use WHMCS\Database\Capsule;
 
 class Renew extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
         $order = Capsule::table('tblsslorders')
             ->where('serviceid', '=', $this->params['serviceid'])
@@ -27,7 +27,7 @@ class Renew extends AbstractAction
 
         $this->sendEmail($order->id);
 
-        return null;
+        return '';
     }
 
     protected function sendEmail(int $sslOrderId): void

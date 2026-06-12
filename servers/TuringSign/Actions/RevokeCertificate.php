@@ -8,7 +8,7 @@ use WHMCS\Database\Capsule;
 
 class RevokeCertificate extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
         $sslOrder = Capsule::table('tblsslorders')
             ->where('serviceid', '=', $this->params['serviceid'])
@@ -22,6 +22,6 @@ class RevokeCertificate extends AbstractAction
         $api = new TlsManagerApi($this->params['configoption1'], $this->params['configoption2'], $this->params['configoption3']);
         $api->revokeCertificate($sslOrder->remoteid);
 
-        return null;
+        return '';
     }
 }

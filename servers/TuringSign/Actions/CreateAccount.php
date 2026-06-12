@@ -8,7 +8,7 @@ use Exception;
 
 class CreateAccount extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
         if($this->certificateAlreadyExists())
         {
@@ -20,7 +20,7 @@ class CreateAccount extends AbstractAction
 
         $this->sendEmail($sslOrderId);
 
-        return null;
+        return '';
     }
 
     protected function certificateAlreadyExists(): bool

@@ -8,17 +8,16 @@ require_once __DIR__ . DIRECTORY_SEPARATOR . "vendor" . DIRECTORY_SEPARATOR . "a
 $apiUrl = $argv[1];
 $applicationId = $argv[2];
 $secretKey = $argv[3];
-$groupId = $argv[4];
 
-if(empty($apiUrl) || empty($applicationId) || empty($secretKey) || empty($groupId))
+if(empty($apiUrl) || empty($applicationId) || empty($secretKey))
 {
-    echo "Usage: php syncProducts.php <apiUrl> <applicationId> <secretKey> <groupId>\n";
+    echo "Usage: php syncProducts.php <apiUrl> <applicationId> <secretKey>\n";
     exit();
 }
 
 try
 {
-    $syncProducts = new SyncProducts($apiUrl, $applicationId, $secretKey, $groupId);
+    $syncProducts = new SyncProducts($apiUrl, $applicationId, $secretKey);
     $syncProducts->sync();
 }
 catch(Exception $e)

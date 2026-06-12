@@ -209,7 +209,7 @@ add_hook('AdminAreaFooterOutput', 1, function ($params) {
     $transactions = Capsule::table('tblaccounts')
         ->where('invoiceid', '=', $invoiceId)
         ->where('amountin', '>', 0)
-        ->where('type', '=', 'gateway_funds_in')
+        //->where('type', '=', 'gateway_funds_in')
         ->orderBy('date', 'ASC')
         ->orderBy('id', 'ASC')
         ->get();

@@ -4,8 +4,8 @@ namespace ModulesGarden\TuringSign\Actions;
 
 class SuspendAccount extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
-        return null;
+        return '';
     }
 }

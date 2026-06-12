@@ -7,7 +7,7 @@ use WHMCS\Database\Capsule;
 
 class ResendApproverEmail extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
         $order = Capsule::table('tblsslorders')
             ->where('serviceid', '=', $this->params['serviceid'])
@@ -21,6 +21,6 @@ class ResendApproverEmail extends AbstractAction
         $api = new TlsManagerApi($this->params['configoption1'], $this->params['configoption2'], $this->params['configoption3']);
         $api->resendAck($order->remoteid);
 
-        return null;
+        return '';
     }
 }

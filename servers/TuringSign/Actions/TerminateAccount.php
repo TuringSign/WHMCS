@@ -6,7 +6,7 @@ use WHMCS\Database\Capsule;
 
 class TerminateAccount extends AbstractAction
 {
-    public function execute(): null
+    public function execute(): string
     {
         Capsule::table('tblsslorders')
             ->where('serviceid', '=', $this->params['serviceid'])
@@ -14,6 +14,6 @@ class TerminateAccount extends AbstractAction
                 'status' => 'Cancelled'
             ]);
 
-        return null;
+        return '';
     }
 }

@@ -8,6 +8,7 @@ use ModulesGarden\TuringSign\Api\TlsManagerApi;
 use ModulesGarden\TuringSign\Exceptions\UserVisibleException;
 use ModulesGarden\TuringSign\Helpers\Csr;
 use ModulesGarden\TuringSign\Helpers\Lang;
+use mysql_xdevapi\Exception;
 use phpseclib3\File\X509;
 use WHMCS\CustomField\CustomFieldValue;
 use WHMCS\Database\Capsule;
@@ -1318,6 +1319,7 @@ class ClientArea extends AbstractAction
             $sslOrderRemoteId = $this->getSslOrderRemoteId();
 
             $data = null;
+            $dataForCpanel = null;
 
             $api = new TlsManagerApi($this->params['configoption1'], $this->params['configoption2'], $this->params['configoption3']);
             $resultDownloadCertificate = $api->downloadOrderCertificate($sslOrderRemoteId);
@@ -1340,7 +1342,14 @@ class ClientArea extends AbstractAction
                 {
                     $data = $zip->getFromIndex($i);
 
-                    break;
+                    //break;
+                }
+
+                if(strtolower($name) === 'cer_crt/bundle.crt')
+                {
+                    $dataForCpanel = $zip->getFromIndex($i);
+
+                    //break;
                 }
             }
 
@@ -1350,6 +1359,13 @@ class ClientArea extends AbstractAction
             $service = Capsule::table('tblhosting')
                 ->where('id', '=', $serviceId)
                 ->first();
+
+            $loggedWhmcsClientId = (int)$_SESSION['uid'];
+
+            if(!$loggedWhmcsClientId || $service->userid != $loggedWhmcsClientId)
+            {
+                throw new \Exception('invalidServiceOwner');
+            }
 
             $server = Capsule::table('tblservers')
                 ->where('id', '=', $service->server)
@@ -1398,7 +1414,11 @@ class ClientArea extends AbstractAction
                 $baseUrl = sprintf("%s://%s:%s", $server->secure == "on" ? "https" : "http", $server->ipaddress, $server->port ?? "2087");
 
                 $cPanelApi = new CPanelApi($baseUrl, $server->username, $server->accesshash);
-                $cPanelApi->installSsl($service->domain, $data, $privateKey);
+                $cPanelApi->installSsl($service->domain, $dataForCpanel, $privateKey);
+            }
+            else
+            {
+                throw new \Exception('invalidServerType');
             }
 
             $_SESSION['TuringSignMessage'] = [
@@ -1419,7 +1439,7 @@ class ClientArea extends AbstractAction
             header('Location: clientarea.php?action=productdetails&id=' . $this->params['serviceid']);
             exit();
         }
-        catch(\Exception $e)
+        catch(\Throwable $e)
         {
             $_SESSION['TuringSignMessage'] = [
                 'type' => 'error',
