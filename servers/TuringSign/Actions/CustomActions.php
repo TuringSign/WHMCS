@@ -39,7 +39,7 @@ class CustomActions extends AbstractAction
 
             $resultGetOrder = $api->getOrder($sslOrder->remoteid);
 
-            $this->certificateStatus = $resultGetOrder['order_status'];
+            $this->certificateStatus = strtoupper($resultGetOrder['order_status']);
         }
 
         $lang = new Lang();

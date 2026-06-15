@@ -8,7 +8,6 @@ use ModulesGarden\TuringSign\Api\TlsManagerApi;
 use ModulesGarden\TuringSign\Exceptions\UserVisibleException;
 use ModulesGarden\TuringSign\Helpers\Csr;
 use ModulesGarden\TuringSign\Helpers\Lang;
-use mysql_xdevapi\Exception;
 use phpseclib3\File\X509;
 use WHMCS\CustomField\CustomFieldValue;
 use WHMCS\Database\Capsule;
@@ -88,7 +87,7 @@ class ClientArea extends AbstractAction
 
             $resultGetOrder = $api->getOrder($sslOrder->remoteid);
 
-            $certificateStatus = $resultGetOrder['order_status'];
+            $certificateStatus = strtoupper($resultGetOrder['order_status']);
             $primaryDomain = $resultGetOrder['order_certificate_info']['common_name'];
             $subjectAlternativeNames = implode(', ', $resultGetOrder['order_certificate_info']['sans']['dns']);
             $certificateType = $resultGetOrder['ssl_type'];
@@ -977,7 +976,7 @@ class ClientArea extends AbstractAction
                 }
             }
 
-            if($resultGetOrder['order_status'] != 'PENDING')
+            if(strtoupper($resultGetOrder['order_status']) != 'PENDING')
             {
                 $validationInfo = [];
             }
