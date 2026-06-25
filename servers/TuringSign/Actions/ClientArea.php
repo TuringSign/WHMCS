@@ -8,6 +8,7 @@ use ModulesGarden\TuringSign\Api\TlsManagerApi;
 use ModulesGarden\TuringSign\Exceptions\UserVisibleException;
 use ModulesGarden\TuringSign\Helpers\Csr;
 use ModulesGarden\TuringSign\Helpers\Lang;
+use ModulesGarden\TuringSign\Helpers\PublicSuffixHelper;
 use phpseclib3\File\X509;
 use WHMCS\CustomField\CustomFieldValue;
 use WHMCS\Database\Capsule;
@@ -436,10 +437,17 @@ class ClientArea extends AbstractAction
                     if (str_starts_with($d, 'www.'))
                     {
                         $apex = substr($d, 4);
+
+                        if(PublicSuffixHelper::isSubdomain($apex))//check if $apex is not subdomain
+                        {
+                            continue;
+                        }
+
                         $dnsNames[] = $apex;
                     }
-                    else
+                    elseif(!PublicSuffixHelper::isSubdomain($d))
                     {
+                        //add www only if $d is not subdomain
                         $dnsNames[] = 'www.' . $d;
                     }
                 }
@@ -709,10 +717,17 @@ class ClientArea extends AbstractAction
                     if (str_starts_with($d, 'www.'))
                     {
                         $apex = substr($d, 4);
+
+                        if(PublicSuffixHelper::isSubdomain($apex))//check if $apex is not subdomain
+                        {
+                            continue;
+                        }
+
                         $dnsNames[] = $apex;
                     }
-                    else
+                    elseif(!PublicSuffixHelper::isSubdomain($d))
                     {
+                        //add www only if $d is not subdomain
                         $dnsNames[] = 'www.' . $d;
                     }
                 }
@@ -745,7 +760,12 @@ class ClientArea extends AbstractAction
 
                     if(str_starts_with($d, 'www.'))
                     {
-                        $d = substr($d, 4);
+                        $base = substr($d, 4);
+
+                        if(!PublicSuffixHelper::isSubdomain($base))
+                        {
+                            $d = $base;
+                        }
                     }
 
                     if(isset($uniqueDomains[$d]))
@@ -843,10 +863,17 @@ class ClientArea extends AbstractAction
                     if (str_starts_with($d, 'www.'))
                     {
                         $apex = substr($d, 4);
+
+                        if(PublicSuffixHelper::isSubdomain($apex))//check if $apex is not subdomain
+                        {
+                            continue;
+                        }
+
                         $dnsNames[] = $apex;
                     }
-                    else
+                    elseif(!PublicSuffixHelper::isSubdomain($d))
                     {
+                        //add www only if $d is not subdomain
                         $dnsNames[] = 'www.' . $d;
                     }
                 }
@@ -879,7 +906,12 @@ class ClientArea extends AbstractAction
 
                     if(str_starts_with($d, 'www.'))
                     {
-                        $d = substr($d, 4);
+                        $base = substr($d, 4);
+
+                        if(!PublicSuffixHelper::isSubdomain($base))
+                        {
+                            $d = $base;
+                        }
                     }
 
                     if(isset($uniqueDomains[$d]))
