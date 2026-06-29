@@ -1,4 +1,4 @@
-<p align="center">
+<p align="left">
   <a href="https://turingsign.com">
     <img src="https://turingsign.com/wp-content/uploads/2024/04/turingsign_logo.png" alt="TuringSign Logo" width="300">
   </a>
