@@ -1,25 +1,29 @@
+<p align="center">
+  <a href="https://turingsign.com">
+    <img src="https://turingsign.com/wp-content/uploads/2024/04/turingsign_logo.png" alt="TuringSign Logo" width="300">
+  </a>
+</p>
+
 # TuringSign WHMCS Module
 
 ## Overview
-The **TuringSign** module for WHMCS is a server provisioning module designed to manage digital certificates and digital signature services. Developed by ModulesGarden, this module integrates seamlessly into WHMCS to automate the lifecycle of certificate products.
+The **TuringSign** WHMCS module is the official server provisioning integration designed to automate the selling, provisioning, and management of TuringSign digital SSL/TLS certificates and digital signature products within your WHMCS platform.
 
-## Features
-This module supports the following automated provisioning actions within WHMCS:
-- **Create Account**: Automatically provision new certificates upon order completion.
-- **Suspend/Unsuspend Account**: Temporarily suspend or unsuspend active certificates.
-- **Terminate Account**: Completely terminate and remove the provisioned certificate.
-- **Renew**: Handle renewals for expiring certificates.
+By integrating your WHMCS instance seamlessly with the TuringSign API, this module provides an effortless ordering and lifecycle management experience for your customers.
 
-### Custom Admin Actions
-Administrators have access to additional management features directly from the WHMCS admin area:
-- **Revoke Certificate**: Revoke an issued certificate.
-- **Resend Approver Email**: Resend the Domain Control Validation (DCV) approver email.
-- **Refund Certificate**: Process refunds for certificate orders.
+## Prerequisites
+Before installing and configuring the TuringSign module, ensure that your environment meets the following requirements:
 
-### Client Area
-The module also features a Client Area integration, allowing end-users to manage their certificates seamlessly from the WHMCS client portal.
+- **WHMCS**: Version 8.0 or later
+- **PHP**: Version 7.2 or later (PHP 8.x recommended)
+- **PHP Extensions**: cURL, OpenSSL, JSON
+- **Dependencies**: `phpseclib/phpseclib` ^3.0
+- **TuringSign Partner Account**: An active TuringSign Partner account with valid API credentials
 
-## Requirements
-- WHMCS 8.x or later recommended
-- PHP 7.2 or later (PHP 8.x recommended)
-- `phpseclib/phpseclib` ^3.0
+## Documentation & Guide
+For detailed step-by-step instructions on installing, configuring, and setting up products with the TuringSign module, please visit our official guide:
+
+👉 [TuringSign Installation and Configuration Guide](https://turingsign.com/Installation-and-configuration-guide)
+
+## Support
+If you have any questions or require assistance during setup, please contact our team via [TuringSign](https://turingsign.com).
