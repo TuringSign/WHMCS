@@ -15,7 +15,7 @@ By integrating your WHMCS instance seamlessly with the TuringSign API, this modu
 Before installing and configuring the TuringSign module, ensure that your environment meets the following requirements:
 
 - **WHMCS**: Version 8.0 or later
-- **PHP**: Version 7.2 or later (PHP 8.x recommended)
+- **PHP**: PHP 8.0 or higher
 - **PHP Extensions**: cURL, OpenSSL, JSON
 - **Dependencies**: `phpseclib/phpseclib` ^3.0
 - **TuringSign Partner Account**: An active TuringSign Partner account with valid API credentials
