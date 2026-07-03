@@ -1350,7 +1350,6 @@ class ClientArea extends AbstractAction
             $sslOrderRemoteId = $this->getSslOrderRemoteId();
 
             $data = null;
-            $dataForCpanel = null;
 
             $api = new TlsManagerApi($this->params['configoption1'], $this->params['configoption2'], $this->params['configoption3']);
             $resultDownloadCertificate = $api->downloadOrderCertificate($sslOrderRemoteId);
@@ -1369,18 +1368,11 @@ class ClientArea extends AbstractAction
             {
                 $name = $zip->getNameIndex($i);
 
-                if(strtolower($name) === 'apache/certificate.pem')
+                if(strtolower($name) === 'pem/fullchain.pem')
                 {
                     $data = $zip->getFromIndex($i);
 
-                    //break;
-                }
-
-                if(strtolower($name) === 'cer_crt/bundle.crt')
-                {
-                    $dataForCpanel = $zip->getFromIndex($i);
-
-                    //break;
+                    break;
                 }
             }
 
@@ -1445,7 +1437,7 @@ class ClientArea extends AbstractAction
                 $baseUrl = sprintf("%s://%s:%s", $server->secure == "on" ? "https" : "http", $server->ipaddress, $server->port ?? "2087");
 
                 $cPanelApi = new CPanelApi($baseUrl, $server->username, $server->accesshash);
-                $cPanelApi->installSsl($service->domain, $dataForCpanel, $privateKey);
+                $cPanelApi->installSsl($service->domain, $data, $privateKey);
             }
             else
             {
@@ -1507,7 +1499,7 @@ class ClientArea extends AbstractAction
             {
                 $name = $zip->getNameIndex($i);
 
-                if(strtolower($name) === 'apache/certificate.pem')
+                if(strtolower($name) === 'pem/fullchain.pem')
                 {
                     $data = $zip->getFromIndex($i);
 
