@@ -89,7 +89,7 @@
                         <p>{$tsLang->get('dnsCnameRecordInstructions')}</p>
                         <div class="card bg-light mb-3">
                             <div class="card-body p-2 font-monospace text-center">
-                                {$info['validation_key']}
+                                {$info['dns_cname']['point']}
                             </div>
                         </div>
                     {elseif $info['validation_method'] == 'constructed_email'}
